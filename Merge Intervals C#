@@ -1,0 +1,41 @@
+ // Merge Intervals
+    public class Interval_m {
+    public int start;
+    public int end;
+    public  Interval_m() { start = 0; end = 0; }
+    public Interval_m(int s, int e) { start = s; end = e; }
+  }
+   public class merge_interval
+    {
+       public int comp(Interval_m a, Interval_m b)
+       {
+           if (a.start > b.start)
+           {
+               return 1;
+           }
+           else
+           {
+               return -1;
+           }
+       }
+       public List<Interval_m> insert(List<Interval_m> A, Interval_m newInterval)
+       {
+           List<Interval_m> result = new List<Interval_m>();
+           A.Add(newInterval);
+           A.Sort(comp);
+           result.Add(A[0]);
+           for (int i = 1; i < A.Count;i++ )
+           {
+               if(A[i].start <= result[result.Count-1].end)
+               {
+                   result[result.Count - 1].end = Math.Max(result[result.Count - 1].end, A[i].end);
+               }
+               else
+               {
+                   result.Add(A[i]);
+               }
+           }
+               return result;
+       } 
+    }
+}
