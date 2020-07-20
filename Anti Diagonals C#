@@ -1,0 +1,60 @@
+/*
+     * Anti Diagonals
+     * Give a N*N square matrix, return an array of its anti-diagonals. Look at the example for more details.
+
+Example:
+Input: 	
+
+1 2 3
+4 5 6
+7 8 9
+
+Return the following :
+
+[ 
+  [1],
+  [2, 4],
+  [3, 5, 7],
+  [6, 8],
+  [9]
+]
+     */
+    class Anti_diagonal
+    {
+        public List<List<int>> diagonal(List<List<int>> A)
+        {
+            int n = A[0].Count;
+             int rowss = A.Count;
+            int ROW = n, COL = n;
+            List<List<int>> result = new List<List<int>>();
+              for(int k=0;k<=n-1;k++)
+              {
+                  List<int> rows = new List<int>();
+                  int i = 0;
+                  int j = k;
+                  while(j>=0)
+                  {
+                      rows.Add(A[i][j]);
+                      i++;
+                      j--;
+                  }
+                  result.Add(rows);
+              }
+          for (int l = 1; l <= n - 1;l++ )
+          {
+              List<int> rows = new List<int>();
+              int i = l;
+              int j = n-1;
+              while (i <= n - 1)
+              {
+                  rows.Add(A[i][j]);
+                  j--;
+                  i++;
+              }
+              result.Add(rows);
+             
+          }
+            return result;
+        }
+    }
+}
