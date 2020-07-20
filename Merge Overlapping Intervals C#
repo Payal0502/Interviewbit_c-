@@ -1,0 +1,42 @@
+// Merge Overlapping Intervals
+    public class Interval_o
+    {
+        public int start;
+        public int end;
+        public Interval_o() { start = 0; end = 0; }
+        public Interval_o(int s, int e) { start = s; end = e; }
+    }
+    class merge_overlap_interval
+    {
+        public int compare(Interval_o c,Interval_o b)
+        {
+            if(c.start > b.start)
+            {
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        public List<Interval_o> insert_o(List<Interval_o> a)
+        {
+            List<Interval_o> res = new List<Interval_o>();
+            a.Sort(compare);
+            res.Add(a[0]);
+            for (int i = 1; i < a.Count;i++ )
+            {
+                if(a[i].start <= res[res.Count-1].end)
+                {
+                    res[res.Count - 1].end = Math.Max(res[res.Count - 1].end, a[i].end);
+                }
+                else
+                {
+                    res.Add(a[i]);
+                }
+            }
+                return res;
+        }
+
+    }
+}
