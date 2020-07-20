@@ -1,0 +1,47 @@
+    /*
+     Pascal Triangle
+     * Given numRows, generate the first numRows of Pascal’s triangle.
+
+Pascal’s triangle : To generate A[C] in row R, sum up A’[C] and A’[C-1] from previous row R - 1.
+Example:
+Given numRows = 5,
+Return
+
+[
+     [1],
+     [1,1],
+     [1,2,1],
+     [1,3,3,1],
+     [1,4,6,4,1]
+]
+     */
+    class Pascal_Traingle
+    {
+        public List<List<int>> solve(int A)
+        {
+           
+             List<List<int>> result = new List<List<int>>();
+
+             for (int i = 1; i <= A;i++ )
+             {
+                
+                 int col = 1;
+                 List<int> rows = new List<int>();
+
+                 for(int j=1;j<=i;j++)
+                 {
+                     rows.Add(col);
+                     col = col * (i - j) / j;
+                 }
+                 result.Add(rows);
+             }
+
+             //for (int k = 0; k < result[3].Count; k++)
+             //{
+             //    Console.Write(result[3][k]);
+             //}
+             Console.Write(result[3][2]);
+                 return result;
+        }
+    }
+}
