@@ -1,0 +1,118 @@
+ /*
+     * Maximum Consecutive Gap
+     * Given an unsorted array, find the maximum difference between the successive elements in its sorted form.
+
+Try to solve it in linear time/space.
+
+Example :
+
+Input : [1, 10, 5]
+Output : 5 
+Return 0 if the array contains less than 2 elements.
+
+You may assume that all the elements in the array are non-negative integers and fit in the 32-bit signed integer range.
+You may also assume that the difference will not overflow.
+     */
+     
+class Max_concesutive_gap_o_n
+ {
+public  int maxSortedAdjacentDiff(int[] arr,	int n) 
+{ 
+	int maxVal = arr[0]; 
+	int minVal = arr[0]; 
+	for (int i = 1; i < n; i++) 
+	{ 
+		maxVal = Math.Max(maxVal, arr[i]); 
+		minVal = Math.Min(minVal, arr[i]); 
+	}  
+	int []maxBucket = new int[n - 1]; 
+	int []minBucket = new int[n - 1]; 
+	maxBucket = maxBucket.Select(i => int.MinValue).ToArray(); 
+	minBucket = minBucket.Select(i => int.MaxValue).ToArray(); 
+	float delta = (float) (maxVal - minVal) / 	(float) (n - 1); 
+	for (int i = 0; i < n; i++) 
+	{ 
+		if (arr[i] == maxVal || arr[i] == minVal) 
+		{ 
+			continue; 
+		}
+		int index = (int) (Math.Round((arr[i] -	minVal) / delta)); 
+
+		if (maxBucket[index] == int.MinValue) 
+		{ 
+			maxBucket[index] = arr[i]; 
+		} 
+		else
+		{ 
+			maxBucket[index] = Math.Max(maxBucket[index], 	arr[i]); 
+		} 
+		if (minBucket[index] == int.MaxValue) 
+		{ 
+			minBucket[index] = arr[i]; 
+		} 
+		else
+		{ 
+			minBucket[index] = Math.Min(minBucket[index], 	arr[i]); 
+		} 
+	} 
+	int prev_val = minVal; 
+	int max_gap = 0; 
+	for (int i = 0; i < n - 1; i++) 
+	{ 
+		if (minBucket[i] == int.MaxValue) 
+		{ 
+			continue; 
+		} 
+		max_gap = Math.Max(max_gap, minBucket[i] - prev_val); 
+		prev_val = maxBucket[i]; 
+	} 
+	max_gap = Math.Max(max_gap, maxVal - prev_val); 
+
+	return max_gap; 
+} 
+}
+}
+////Alternate  Solution ////
+ class Max_Consecutive_Gap
+    {
+        public int gap(List<int> A)
+        {
+            int max_count = 0;
+            int cur_count = 0;
+            if (A.Count >= 2)
+            {
+                int max_value = A.Max();
+                int[] arr = new int[max_value];
+                for (int i = 0; i < max_value; i++)
+                {
+                    arr[i] = -1;
+                }
+                for (int i = 0; i < A.Count; i++)
+                {
+                    int a;
+                    a = A[i];
+                    arr[a-1] = a;
+                }
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    if (arr[i] < 0)
+                    {
+                        cur_count++;
+                    }
+                    if(arr[i] > 0)
+                    {
+                        cur_count=0;
+                    }
+                        if(cur_count > max_count)
+                        {
+                            max_count = cur_count;
+                        }
+                    }
+            }
+            else
+            {
+                return 0;
+            }
+            return max_count+1;
+        }
+    }
